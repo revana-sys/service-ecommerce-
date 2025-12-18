@@ -1,6 +1,7 @@
 // CustomerLogin.js
 import React, { useState } from 'react';
 import axios from 'axios';
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:3002';
 import { useNavigate } from 'react-router-dom';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
@@ -13,17 +14,61 @@ const CustomerLogin = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
-      setLoading(true);
-      const res = await axios.post('http://localhost:3002/auth/login', {
-        email,
-        password
-      });
-      localStorage.setItem('token', res.data.token);
-      localStorage.setItem('user', JSON.stringify(res.data.user));
-      navigate('/customer/dashboard');
+      // Try customer login first
+      let response;
+      try {
+        response = await axios.post(`${AUTH_URL}/auth/login`, { email, password });
+        
+        // If customer login succeeds, check role and navigate
+        if (response.data.status === 'success') {
+          const userRole = response.data.user?.role || 'customer';
+          
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          
+          // Navigate based on role
+          if (userRole === 'admin') {
+            localStorage.setItem('admin', JSON.stringify(response.data.user));
+            navigate('/admin/dashboard');
+          } else {
+            navigate('/customer/dashboard');
+          }
+          return;
+        }
+      } catch (customerErr) {
+        // If customer login fails with "Customer not found", try admin login
+        const errorMessage = customerErr.response?.data?.message || '';
+        
+        if (errorMessage.includes('Customer not found')) {
+          // User might be an admin, try admin login
+          try {
+            response = await axios.post(`${AUTH_URL}/auth/admin/login`, { email, password });
+            
+            if (response.data.status === 'success') {
+              const userRole = response.data.user?.role || 'admin';
+              
+              localStorage.setItem('token', response.data.token);
+              localStorage.setItem('admin', JSON.stringify(response.data.user));
+              
+              // Navigate to admin dashboard
+              navigate('/admin/dashboard');
+              return;
+            }
+          } catch (adminErr) {
+            // Admin login also failed
+            throw adminErr;
+          }
+        } else {
+          // Other error (like wrong password for customer)
+          throw customerErr;
+        }
+      }
     } catch (err) {
-      alert('Login failed: ' + (err.response?.data?.message || 'Please try again.'));
+      const errorMessage = err.response?.data?.message || 'Please check your credentials and try again.';
+      alert('Login failed: ' + errorMessage);
     } finally {
       setLoading(false);
     }

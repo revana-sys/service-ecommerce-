@@ -132,7 +132,7 @@ const SimpleUpdateFeedback = () => {
 
                 <form onSubmit={handleUpdate} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-black mb-2">
                             Product (Optional)
                         </label>
                         <select
@@ -150,7 +150,7 @@ const SimpleUpdateFeedback = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-black mb-2">
                             Rating
                         </label>
                         <div className="flex items-center space-x-4">
@@ -164,13 +164,13 @@ const SimpleUpdateFeedback = () => {
                             />
                             <div className="flex items-center space-x-2">
                                 <span className="text-2xl">{'⭐'.repeat(parseInt(feedback.rating))}</span>
-                                <span className="text-gray-600">({feedback.rating}/5)</span>
+                                <span className="text-black">({feedback.rating}/5)</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-black mb-2">
                             Your Feedback
                         </label>
                         <textarea
@@ -187,14 +187,14 @@ const SimpleUpdateFeedback = () => {
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="flex-1 bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400"
+                            className="flex-1 bg-green-600 text-black py-2 px-4 rounded-md hover:bg-green-700 disabled:bg-gray-400"
                         >
                             {submitting ? 'Updating...' : 'Update Feedback'}
                         </button>
                         <button
                             type="button"
                             onClick={() => navigate('/feedback/list')}
-                            className="flex-1 bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600"
+                            className="flex-1 bg-gray-500 text-black py-2 px-4 rounded-md hover:bg-gray-600"
                         >
                             Cancel
                         </button>

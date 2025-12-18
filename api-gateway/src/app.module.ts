@@ -2,9 +2,13 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { FeedbackModule } from './feedback/feedback.module';
 
 @Module({
   imports: [
+    AuthModule,
+    FeedbackModule,
     ClientsModule.register([
       {
         name: 'MICROSERVICES_SERVICE',

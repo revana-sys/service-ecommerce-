@@ -21,7 +21,7 @@ const Vproductt = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`http://localhost:4008/products/${id}`);
+        const res = await axios.get(`http://localhost:3002/product/getproduct/${id}`);
         const productData = res.data;
         const processedProduct = {
           ...productData,

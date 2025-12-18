@@ -8,13 +8,13 @@ const Feedbacks = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const apiUrl = "http://localhost:4008/Feedback";
+  const apiUrl = "http://localhost:3002/feedback";
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
       try {
-        const res = await axios.get(`${apiUrl}/get`);
-        setFeedbacks(res.data.feedbacks || []);
+        const res = await axios.get(apiUrl);
+        setFeedbacks(res.data || []);
       } catch (err) {
         setError(err.message || "Error fetching feedbacks");
       } finally {
@@ -58,16 +58,42 @@ const Feedbacks = () => {
         >
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-2xl font-semibold text-indigo-800">
-              {feedback.name || "Anonymous"}
+              {feedback.customerName || feedback.userId || "Anonymous"}
             </h2>
             <p className="text-sm text-gray-500">
-                Order Date:{" "}
-                
-              <time dateTime={feedback.date}>{new Date(feedback.date).toLocaleString()}</time>
+              Created:{" "}
+              <time dateTime={feedback.createdAt}>{new Date(feedback.createdAt).toLocaleString()}</time>
             </p>
           </div>
-          <p className="text-gray-700 text-lg whitespace-pre-line">{feedback.message}</p>
-          <p className="mt-3 text-sm text-indigo-500 font-medium">Email: {feedback.email || "Not Provided"}</p>
+          <div className="mb-3">
+            <p className="text-sm text-indigo-600 font-medium">
+              Rating: <span className="text-yellow-500">{'⭐'.repeat(feedback.rating || 0)}</span> ({feedback.rating || 0}/5)
+            </p>
+            {feedback.email && (
+              <p className="text-sm text-gray-600">Email: {feedback.email}</p>
+            )}
+            {feedback.productId && (
+              <p className="text-sm text-gray-600">Product: {feedback.productName || feedback.productId}</p>
+            )}
+          </div>
+          <p className="text-gray-700 text-lg whitespace-pre-line">{feedback.comment || feedback.message}</p>
+          <div className="mt-4">
+            <button
+              onClick={async () => {
+                if (window.confirm('Are you sure you want to delete this feedback?')) {
+                  try {
+                    await axios.delete(`http://localhost:3002/feedback/${feedback._id}`);
+                    window.location.reload(); // Refresh the page
+                  } catch (error) {
+                    alert('Failed to delete feedback');
+                  }
+                }
+              }}
+              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 text-sm"
+            >
+              Delete Feedback
+            </button>
+          </div>
         </div>
       ))}
     </div>

@@ -148,7 +148,7 @@ const NewWriteFeedback = () => {
                         onClick={() => navigate('/feedback/list')}
                         style={{
                             backgroundColor: '#6b7280',
-                            color: 'white',
+                            color: 'black',
                             padding: '10px 20px',
                             border: 'none',
                             borderRadius: '4px',
@@ -164,7 +164,8 @@ const NewWriteFeedback = () => {
                         <label style={{
                             display: 'block',
                             marginBottom: '8px',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            color: 'black'
                         }}>
                             Product (Optional)
                         </label>
@@ -180,7 +181,7 @@ const NewWriteFeedback = () => {
                                 fontSize: '16px'
                             }}
                         >
-                            <option value="">General Feedback (No specific product)</option>
+                            <option value="" style={{ color: 'black' }}>General Feedback (No specific product)</option>
                             {products.map((product) => (
                                 <option key={product._id} value={product._id}>
                                     {product.name} - ${product.price}
@@ -193,7 +194,8 @@ const NewWriteFeedback = () => {
                         <label style={{
                             display: 'block',
                             marginBottom: '8px',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            color: 'black'
                         }}>
                             Rating: {formData.rating}/5
                         </label>
@@ -206,7 +208,7 @@ const NewWriteFeedback = () => {
                             onChange={handleInputChange}
                             style={{ width: '100%', marginBottom: '10px' }}
                         />
-                        <div style={{ fontSize: '24px' }}>
+                        <div style={{ fontSize: '24px', color: 'black' }}>
                             {'⭐'.repeat(parseInt(formData.rating))}
                         </div>
                     </div>
@@ -215,7 +217,8 @@ const NewWriteFeedback = () => {
                         <label style={{
                             display: 'block',
                             marginBottom: '8px',
-                            fontWeight: '500'
+                            fontWeight: '500',
+                            color: 'black'
                         }}>
                             Your Feedback *
                         </label>
@@ -244,7 +247,7 @@ const NewWriteFeedback = () => {
                             style={{
                                 flex: 1,
                                 backgroundColor: submitting ? '#9ca3af' : '#4f46e5',
-                                color: 'white',
+                                color: 'black',
                                 padding: '12px',
                                 border: 'none',
                                 borderRadius: '4px',
@@ -260,7 +263,7 @@ const NewWriteFeedback = () => {
                             style={{
                                 flex: 1,
                                 backgroundColor: '#6b7280',
-                                color: 'white',
+                                color: 'black',
                                 padding: '12px',
                                 border: 'none',
                                 borderRadius: '4px',

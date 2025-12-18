@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:3002';
 
 const AdminLogin = () => {
   const [email, setEmail] = useState('');
@@ -12,7 +13,7 @@ const AdminLogin = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3002/auth/admin/login', {
+      const response = await fetch(`${AUTH_URL}/auth/admin/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

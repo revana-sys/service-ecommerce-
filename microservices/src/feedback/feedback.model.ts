@@ -10,14 +10,8 @@ export interface Feedback extends Document {
 }
 
 export const FeedbackSchema = new Schema({
-    userId: { 
-        type: String, 
-        required: true 
-    },
-    productId: { 
-        type: String, 
-        required: false 
-    },
+    userId: { type: String, required: true },
+    productId: { type: String, required: false },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },

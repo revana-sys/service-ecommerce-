@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:3002';
 import { useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
@@ -19,7 +20,7 @@ const CustomerSignup = () => {
     }
 
     try {
-      const res = await axios.post('http://localhost:3002/auth/signup', {
+      const res = await axios.post(`${AUTH_URL}/auth/signup`, {
         name,
         email,
         password,
@@ -170,7 +171,8 @@ const styles = {
     backgroundColor: 'transparent',
     flex: 1,
     fontSize: '14px',
-    paddingLeft: '8px'
+    paddingLeft: '8px',
+    color: '#000'
   },
   toggle: {
     position: 'absolute',

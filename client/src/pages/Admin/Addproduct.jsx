@@ -302,7 +302,7 @@ const AddProduct = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              className={`w-full border ${errors.name ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+              className={`w-full border ${errors.name ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
             />
             {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
           </div>
@@ -315,7 +315,7 @@ const AddProduct = () => {
               name="category"
               value={formData.category}
               onChange={handleChange}
-              className={`w-full border ${errors.category ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+              className={`w-full border ${errors.category ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
             >
               <option value="Summer Collection">Summer Collection</option>
               <option value="Winter Collection">Winter Collection</option>
@@ -333,7 +333,7 @@ const AddProduct = () => {
               name="material"
               value={formData.material}
               onChange={handleChange}
-              className={`w-full border ${errors.material ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+              className={`w-full border ${errors.material ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
             />
             {errors.material && <p className="text-red-500 text-sm mt-1">{errors.material}</p>}
           </div>
@@ -349,7 +349,7 @@ const AddProduct = () => {
               onChange={handleChange}
               min="0"
               step="0.01"
-              className={`w-full border ${errors.price ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+              className={`w-full border ${errors.price ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
             />
             {errors.price && <p className="text-red-500 text-sm mt-1">{errors.price}</p>}
           </div>
@@ -364,7 +364,7 @@ const AddProduct = () => {
               value={formData.stock}
               onChange={handleChange}
               min="0"
-              className={`w-full border ${errors.stock ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+              className={`w-full border ${errors.stock ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
             />
             {errors.stock && <p className="text-red-500 text-sm mt-1">{errors.stock}</p>}
           </div>
@@ -379,7 +379,7 @@ const AddProduct = () => {
             <button
               type="button"
               onClick={addColor}
-              className="flex items-center text-sm text-purple-600 hover:text-purple-700"
+              className="flex items-center text-sm text-purple-600 hover:text-purple-700 text-black"
             >
               <Plus size={16} className="mr-1" />
               Add Color
@@ -393,7 +393,7 @@ const AddProduct = () => {
                 value={color.name}
                 onChange={(e) => handleColorChange(index, 'name', e.target.value)}
                 placeholder="Color name"
-                className={`flex-1 border ${errors[`color_${index}`] ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+                className={`flex-1 border ${errors[`color_${index}`] ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
               />
               {errors[`color_${index}`] && <p className="text-red-500 text-sm">{errors[`color_${index}`]}</p>}
               <label className="flex items-center space-x-2">
@@ -441,7 +441,7 @@ const AddProduct = () => {
                 value={size.name}
                 onChange={(e) => handleSizeChange(index, 'name', e.target.value)}
                 placeholder="Size name"
-                className={`flex-1 border ${errors[`size_${index}`] ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none`}
+                className={`flex-1 border ${errors[`size_${index}`] ? 'border-red-500' : 'border-gray-300'} p-2 rounded-md focus:ring-2 focus:ring-purple-400 focus:outline-none text-black`}
               />
               {errors[`size_${index}`] && <p className="text-red-500 text-sm">{errors[`size_${index}`]}</p>}
               <label className="flex items-center space-x-2">

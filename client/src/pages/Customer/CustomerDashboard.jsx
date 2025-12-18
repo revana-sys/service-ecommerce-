@@ -47,11 +47,26 @@ const CustomerDashboard = () => {
         }
 
         // Process each product to ensure consistent image handling
-        const processedProducts = productsData.map(product => ({
-          ...product,
-          images: Array.isArray(product.images) ? product.images :
-            product.image ? [product.image] : []
-        }));
+        const processedProducts = productsData.map(product => {
+          const imgs = Array.isArray(product.images)
+            ? product.images
+            : product.image
+              ? [product.image]
+              : [];
+
+          const normalized = imgs
+            .map(img => {
+              if (!img) return "";
+              if (typeof img === "string") return img;
+              if (img.url) return img.url;
+              if (img.path) return img.path;
+              if (img.filename) return img.filename;
+              return "";
+            })
+            .filter(Boolean);
+
+          return { ...product, images: normalized };
+        });
 
         setProducts(processedProducts);
         // Extract unique categories
@@ -154,7 +169,7 @@ const CustomerDashboard = () => {
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 w-56"
+              className="border border-gray-300 rounded px-3 py-2 w-56 text-black"
             />
           </div>
 
@@ -165,7 +180,7 @@ const CustomerDashboard = () => {
               type="number"
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 w-32"
+              className="border border-gray-300 rounded px-3 py-2 w-32 text-black"
               placeholder="0"
             />
           </div>
@@ -177,7 +192,7 @@ const CustomerDashboard = () => {
               type="number"
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 w-32"
+              className="border border-gray-300 rounded px-3 py-2 w-32 text-black"
               placeholder="1000"
             />
           </div>
@@ -188,7 +203,7 @@ const CustomerDashboard = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2 w-48"
+              className="border border-gray-300 rounded px-3 py-2 w-48 text-black"
             >
               <option value="">None</option>
               <option value="priceLowHigh">Price: Low to High</option>
@@ -248,7 +263,15 @@ const CustomerDashboard = () => {
                 <div className="relative h-64 bg-gray-100 group">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <img
-                      src={`http://localhost:4008/uploads/${product.images[0]}`}
+                      src={
+                        (() => {
+                          const img = product.images?.[0];
+                          if (!img) return "/placeholder.png";
+                          if (typeof img === 'string' && img.startsWith('http')) return img;
+                          const file = String(img).replace(/^\/?uploads\//, '');
+                          return `http://localhost:4008/uploads/${file}`;
+                        })()
+                      }
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />

@@ -9,17 +9,7 @@ import { FeedbackService } from './feedback.service';
             {
                 name: 'FEEDBACK_SERVICE',
                 transport: Transport.TCP,
-                options: { host: '127.0.0.1', port: 3005 },
-            },
-            {
-                name: 'USER_SERVICE',
-                transport: Transport.TCP,
-                options: { host: '127.0.0.1', port: 3004 }, // Assuming user service runs on port 3004
-            },
-            {
-                name: 'PRODUCT_SERVICE',
-                transport: Transport.TCP,
-                options: { host: '127.0.0.1', port: 3003 }, // Assuming product service runs on port 3003
+                options: { host: '127.0.0.1', port: 3003 },
             },
         ]),
     ],

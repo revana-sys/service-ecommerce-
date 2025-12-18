@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:3002';
+
 const Signup = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -24,7 +26,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:3002/auth/signup', {
+      const response = await axios.post(`${AUTH_URL}/auth/signup`, {
         name: fullName,
         email,
         password,

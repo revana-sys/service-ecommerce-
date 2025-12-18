@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+const AUTH_URL = import.meta.env.VITE_AUTH_URL || 'http://localhost:3002';
 import { useNavigate } from 'react-router-dom';
 import { FiMail, FiLock, FiEye, FiEyeOff } from 'react-icons/fi';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('customer'); // 'customer' or 'admin'
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -16,22 +16,58 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const url = role === 'admin'
-        ? 'http://localhost:3002/auth/admin/login'
-        : 'http://localhost:3002/auth/login';
-
-      const response = await axios.post(url, { email, password });
-
-      if (role === 'customer') {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user));
-        navigate('/customer/dashboard');
-      } else {
-        localStorage.setItem('admin', JSON.stringify(response.data));
-        navigate('/admin/dashboard');
+      // Try customer login first
+      let response;
+      try {
+        response = await axios.post(`${AUTH_URL}/auth/login`, { email, password });
+        
+        // If customer login succeeds, check role and navigate
+        if (response.data.status === 'success') {
+          const userRole = response.data.user?.role || 'customer';
+          
+          localStorage.setItem('token', response.data.token);
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          
+          // Navigate based on role
+          if (userRole === 'admin') {
+            localStorage.setItem('admin', JSON.stringify(response.data.user));
+            navigate('/admin/dashboard');
+          } else {
+            navigate('/customer/dashboard');
+          }
+          return;
+        }
+      } catch (customerErr) {
+        // If customer login fails with "Customer not found", try admin login
+        const errorMessage = customerErr.response?.data?.message || '';
+        
+        if (errorMessage.includes('Customer not found')) {
+          // User might be an admin, try admin login
+          try {
+            response = await axios.post(`${AUTH_URL}/auth/admin/login`, { email, password });
+            
+            if (response.data.status === 'success') {
+              const userRole = response.data.user?.role || 'admin';
+              
+              localStorage.setItem('token', response.data.token);
+              localStorage.setItem('admin', JSON.stringify(response.data.user));
+              
+              // Navigate to admin dashboard
+              navigate('/admin/dashboard');
+              return;
+            }
+          } catch (adminErr) {
+            // Admin login also failed
+            throw adminErr;
+          }
+        } else {
+          // Other error (like wrong password for customer)
+          throw customerErr;
+        }
       }
     } catch (err) {
-      alert('Login failed: ' + (err.response?.data?.message || 'Please try again.'));
+      const errorMessage = err.response?.data?.message || 'Please check your credentials and try again.';
+      alert('Login failed: ' + errorMessage);
     } finally {
       setLoading(false);
     }
@@ -40,13 +76,9 @@ const Login = () => {
   return (
     <div style={styles.wrapper}>
       <div style={styles.loginBox}>
-        <h2 style={styles.title}>{role === 'admin' ? 'Admin' : 'Customer'} Login</h2>
+        <h2 style={styles.title}>Login</h2>
 
         <form onSubmit={handleLogin} style={styles.form}>
-          <select value={role} onChange={(e) => setRole(e.target.value)} style={styles.select}>
-            <option value="customer">Customer</option>
-            <option value="admin">Admin</option>
-          </select>
 
           <div style={styles.inputGroup}>
             <FiMail />
@@ -112,15 +144,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '1rem',
-  },
-  select: {
-    padding: '10px',
-    borderRadius: '8px',
-    border: '2px solid #000000',
-    fontSize: '16px',
-    outline: 'none',
-    backgroundColor: 'white',
-    color: '#000000',
   },
   inputGroup: {
     display: 'flex',

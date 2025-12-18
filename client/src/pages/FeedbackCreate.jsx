@@ -17,32 +17,32 @@ const FeedbackCreate = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  const user = JSON.parse(localStorage.getItem("user"));
+    e.preventDefault();
+    setLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
 
-  try {
-    await axios.post("http://localhost:4008/feedback/Create", {
-      orderId,
-      email: user.email,
-      feedback,
-       product: productId,
-    });
+    try {
+      await axios.post("http://localhost:3002/feedback", {
+        userId: user.id || user.email,
+        productId,
+        rating: 5, // Default rating, you can add a rating input
+        comment: feedback,
+      });
 
-    setSuccess(true);
-    setFeedback("");
+      setSuccess(true);
+      setFeedback("");
 
-    // Redirect to feedback list page after successful submit:
-    navigate('/feedback/list');
-  } catch (error) {
-    console.error("Error submitting feedback:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+      // Redirect to feedback list page after successful submit:
+      navigate('/feedback/list');
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
-  
+
   return (
     <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
       <h2 className="text-2xl font-bold mb-4 text-center">Write Feedback for Order {orderId}</h2>

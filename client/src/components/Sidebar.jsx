@@ -75,9 +75,8 @@ const Sidebar = ({ isAdmin = false, onCategorySelect }) => {
               <li>
                 <button
                   onClick={() => onCategorySelect("all")}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${
-                    location.pathname === "/admin/products" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
-                  }`}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname === "/admin/products" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
                 >
                   <Package className="w-5 h-5" />
                   {!collapsed && <span>All Products</span>}
@@ -115,9 +114,8 @@ const Sidebar = ({ isAdmin = false, onCategorySelect }) => {
               <li>
                 <button
                   onClick={() => navigate("/admin/orders")}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${
-                    location.pathname === "/admin/orders" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
-                  }`}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname === "/admin/orders" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
                 >
                   <ShoppingBag className="w-5 h-5" />
                   {!collapsed && <span>Orders</span>}
@@ -139,6 +137,58 @@ const Sidebar = ({ isAdmin = false, onCategorySelect }) => {
                 >
                   <MessageSquare className="w-5 h-5" />
                   {!collapsed && <span>Feedbacks</span>}
+                </button>
+              </li>
+            </>
+          )}
+
+          {!isAdmin && (
+            <>
+              {/* Customer Dashboard */}
+              <li>
+                <button
+                  onClick={() => navigate("/customer/dashboard")}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname === "/customer/dashboard" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
+                >
+                  <Package className="w-5 h-5" />
+                  {!collapsed && <span>Products</span>}
+                </button>
+              </li>
+
+              {/* Customer Cart */}
+              <li>
+                <button
+                  onClick={() => navigate("/customer/CartPage")}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname === "/customer/CartPage" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  {!collapsed && <span>Cart</span>}
+                </button>
+              </li>
+
+              {/* Customer Orders */}
+              <li>
+                <button
+                  onClick={() => navigate("/customer/myorders")}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname === "/customer/myorders" ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
+                >
+                  <Package className="w-5 h-5" />
+                  {!collapsed && <span>My Orders</span>}
+                </button>
+              </li>
+
+              {/* Customer Feedback */}
+              <li>
+                <button
+                  onClick={() => navigate("/feedback/list")}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname.startsWith("/feedback") ? 'bg-indigo-50 text-indigo-600' : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
+                >
+                  <MessageSquare className="w-5 h-5" />
+                  {!collapsed && <span>Feedback</span>}
                 </button>
               </li>
             </>

@@ -101,7 +101,7 @@ const NewFeedbackList = () => {
                         onClick={() => navigate('/feedback/write')}
                         style={{
                             backgroundColor: '#10b981',
-                            color: 'white',
+                            color: 'black',
                             padding: '12px 24px',
                             border: 'none',
                             borderRadius: '4px',
@@ -115,7 +115,7 @@ const NewFeedbackList = () => {
                         onClick={() => navigate('/customer/dashboard')}
                         style={{
                             backgroundColor: '#6b7280',
-                            color: 'white',
+                            color: 'black',
                             padding: '12px 24px',
                             border: 'none',
                             borderRadius: '4px',
@@ -135,15 +135,15 @@ const NewFeedbackList = () => {
                         textAlign: 'center',
                         boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
                     }}>
-                        <h3 style={{ marginBottom: '10px' }}>No Feedback Yet</h3>
-                        <p style={{ color: '#6b7280', marginBottom: '20px' }}>
+                        <h3 style={{ marginBottom: '10px', color: 'black' }}>No Feedback Yet</h3>
+                        <p style={{ color: 'black', marginBottom: '20px' }}>
                             You haven't written any feedback yet. Click "Write New Feedback" to get started!
                         </p>
                         <button
                             onClick={() => navigate('/feedback/write')}
                             style={{
                                 backgroundColor: '#4f46e5',
-                                color: 'white',
+                                color: 'black',
                                 padding: '12px 24px',
                                 border: 'none',
                                 borderRadius: '4px',
@@ -165,15 +165,15 @@ const NewFeedbackList = () => {
                                     boxShadow: '0 2px 10px rgba(0,0,0,0.1)'
                                 }}
                             >
-                                <div style={{ marginBottom: '10px' }}>
+                                <div style={{ marginBottom: '10px', color: 'black' }}>
                                     <strong>Product:</strong> {feedback.productName || feedback.productId || 'General Feedback'}
                                 </div>
-                                <div style={{ marginBottom: '10px' }}>
+                                <div style={{ marginBottom: '10px', color: 'black' }}>
                                     <strong>Rating:</strong> {'⭐'.repeat(feedback.rating || 0)} ({feedback.rating || 0}/5)
                                 </div>
-                                <div style={{ marginBottom: '15px' }}>
+                                <div style={{ marginBottom: '15px', color: 'black' }}>
                                     <strong>Comment:</strong>
-                                    <p style={{ marginTop: '5px', lineHeight: '1.5' }}>
+                                    <p style={{ marginTop: '5px', lineHeight: '1.5', color: 'black' }}>
                                         {feedback.comment || feedback.message || 'No comment'}
                                     </p>
                                 </div>
@@ -184,7 +184,7 @@ const NewFeedbackList = () => {
                                     borderTop: '1px solid #e5e7eb',
                                     paddingTop: '15px'
                                 }}>
-                                    <small style={{ color: '#6b7280' }}>
+                                    <small style={{ color: 'black' }}>
                                         {new Date(feedback.createdAt).toLocaleDateString()}
                                     </small>
                                     <div style={{ display: 'flex', gap: '10px' }}>
@@ -192,7 +192,7 @@ const NewFeedbackList = () => {
                                             onClick={() => navigate(`/feedback/edit/${feedback._id}`)}
                                             style={{
                                                 backgroundColor: '#3b82f6',
-                                                color: 'white',
+                                                color: 'black',
                                                 padding: '6px 12px',
                                                 border: 'none',
                                                 borderRadius: '4px',
@@ -206,7 +206,7 @@ const NewFeedbackList = () => {
                                             onClick={() => handleDelete(feedback._id)}
                                             style={{
                                                 backgroundColor: '#ef4444',
-                                                color: 'white',
+                                                color: 'black',
                                                 padding: '6px 12px',
                                                 border: 'none',
                                                 borderRadius: '4px',

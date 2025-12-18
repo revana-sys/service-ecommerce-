@@ -34,7 +34,29 @@ const AdminDashboard = () => {
       setError(null);
       const res = await axios.get(apiUrl + "/product/getallproducts");
       const fetched = res.data?.data || [];
-      setProducts(fetched);
+
+      const processed = fetched.map(product => {
+        const imgs = Array.isArray(product.images)
+          ? product.images
+          : product.image
+            ? [product.image]
+            : [];
+
+        const normalized = imgs
+          .map(img => {
+            if (!img) return "";
+            if (typeof img === "string") return img;
+            if (img.url) return img.url;
+            if (img.path) return img.path;
+            if (img.filename) return img.filename;
+            return "";
+          })
+          .filter(Boolean);
+
+        return { ...product, images: normalized };
+      });
+
+      setProducts(processed);
       const category = getCategoryFromPath();
       setFilteredProducts(
         category === "All"
@@ -156,9 +178,13 @@ const AdminDashboard = () => {
                 >
                   <img
                     src={
-                      product.images?.[0]
-                        ? `http://localhost:4008/uploads/${product.images[0]}`
-                        : "/placeholder.png"
+                      (() => {
+                        const img = product.images?.[0];
+                        if (!img) return "/placeholder.png";
+                        if (typeof img === 'string' && img.startsWith('http')) return img;
+                        const file = String(img).replace(/^\/?uploads\//, '');
+                        return `http://localhost:4008/uploads/${file}`;
+                      })()
                     }
                     alt={product.name}
                     className="w-full h-44 object-cover rounded-t-xl"

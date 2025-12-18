@@ -28,15 +28,22 @@ const UpdateFeedback = () => {
         return;
       }
 
-      const res = await axios.get(`http://localhost:4008/feedback/get/${id}`);
-      
+      const res = await axios.get(`http://localhost:3002/feedback/${id}`);
+
       // Check if the feedback belongs to the current user
-      if (res.data.feedback.email !== user.email) {
+      const userId = user.id || user.email;
+      if (res.data.userId !== userId && res.data.email !== user.email) {
         setError("You can only edit your own feedbacks");
         return;
       }
 
-      setFeedback(res.data.feedback);
+      // Convert new format to old format for the form
+      setFeedback({
+        customerName: res.data.customerName || user.name || '',
+        email: res.data.email || user.email || '',
+        message: res.data.comment || res.data.message || '',
+        rating: res.data.rating || 5,
+      });
     } catch (error) {
       console.error('Error fetching feedback:', error);
       setError('Failed to fetch feedback.');
@@ -64,7 +71,14 @@ const UpdateFeedback = () => {
         return;
       }
 
-      await axios.put(`http://localhost:4008/feedback/update/${id}`, feedback);
+      // Convert form data to new API format
+      const updateData = {
+        userId: user.id || user.email,
+        comment: feedback.message,
+        rating: feedback.rating
+      };
+
+      await axios.put(`http://localhost:3002/feedback/${id}`, updateData);
       navigate('/feedback/list');
     } catch (error) {
       console.error("Error updating feedback:", error);
@@ -82,7 +96,7 @@ const UpdateFeedback = () => {
         <p className="text-red-600 font-semibold">{error}</p>
         <button
           onClick={() => navigate('/feedback/list')}
-          className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+          className="mt-4 bg-indigo-600 text-black px-4 py-2 rounded hover:bg-indigo-700"
         >
           Back to Feedback List
         </button>
@@ -92,7 +106,7 @@ const UpdateFeedback = () => {
 
   return (
     <div className="p-4 max-w-md mx-auto bg-white shadow rounded mt-10">
-      <h2 className="text-xl font-bold mb-4 text-center">Edit Feedback</h2>
+      <h2 className="text-xl font-bold mb-4 text-center text-black">Edit Feedback</h2>
       <form onSubmit={handleUpdate} className="space-y-3">
         <input
           type="text"
@@ -132,13 +146,13 @@ const UpdateFeedback = () => {
           required
         />
         <div className="flex gap-3">
-          <button type="submit" className="flex-1 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+          <button type="submit" className="flex-1 bg-green-600 text-black px-4 py-2 rounded hover:bg-green-700">
             Update Feedback
           </button>
           <button
             type="button"
             onClick={() => navigate('/feedback/list')}
-            className="flex-1 bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700"
+            className="flex-1 bg-gray-600 text-black px-4 py-2 rounded hover:bg-gray-700"
           >
             Cancel
           </button>

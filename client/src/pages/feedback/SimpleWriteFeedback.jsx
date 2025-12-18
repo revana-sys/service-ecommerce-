@@ -78,12 +78,12 @@ const SimpleWriteFeedback = () => {
     return (
         <div className="min-h-screen bg-gray-50 p-6">
             <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-                <h1 className="text-3xl font-bold mb-6 text-indigo-600">Write New Feedback</h1>
+                <h1 className="text-3xl font-bold mb-6 text-black">Write New Feedback</h1>
 
                 <div className="mb-6">
                     <button
                         onClick={() => navigate('/feedback/list')}
-                        className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+                        className="bg-gray-500 text-black px-4 py-2 rounded hover:bg-gray-600"
                     >
                         ← Back to My Feedbacks
                     </button>
@@ -91,7 +91,7 @@ const SimpleWriteFeedback = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-black mb-2">
                             Product (Optional)
                         </label>
                         <select
@@ -109,7 +109,7 @@ const SimpleWriteFeedback = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-black mb-2">
                             Rating
                         </label>
                         <div className="flex items-center space-x-4">
@@ -123,13 +123,13 @@ const SimpleWriteFeedback = () => {
                             />
                             <div className="flex items-center space-x-2">
                                 <span className="text-2xl">{'⭐'.repeat(parseInt(rating))}</span>
-                                <span className="text-gray-600">({rating}/5)</span>
+                                <span className="text-black">({rating}/5)</span>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-black mb-2">
                             Your Feedback
                         </label>
                         <textarea
@@ -146,14 +146,14 @@ const SimpleWriteFeedback = () => {
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="flex-1 bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 disabled:bg-gray-400"
+                            className="flex-1 bg-indigo-600 text-black py-2 px-4 rounded-md hover:bg-indigo-700 disabled:bg-gray-400"
                         >
                             {submitting ? 'Submitting...' : 'Submit Feedback'}
                         </button>
                         <button
                             type="button"
                             onClick={() => navigate('/feedback/list')}
-                            className="flex-1 bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600"
+                            className="flex-1 bg-gray-500 text-black py-2 px-4 rounded-md hover:bg-gray-600"
                         >
                             Cancel
                         </button>

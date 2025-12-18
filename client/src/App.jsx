@@ -18,8 +18,12 @@ import Orders from "./pages/Admin/orders";
 
 // Feedback Pages
 import WriteFeedback from "./pages/feedback/WriteFeedback";
+import SimpleWriteFeedback from "./pages/feedback/SimpleWriteFeedback";
+import NewWriteFeedback from "./pages/feedback/NewWriteFeedback";
 import FeedbackList from "./pages/feedback/FeedbackList";
+import NewFeedbackList from "./pages/feedback/NewFeedbackList";
 import UpdateFeedback from "./pages/feedback/UpdateFeedback";
+import SimpleUpdateFeedback from "./pages/feedback/SimpleUpdateFeedback";
 import FeedbackCreate from "./pages/FeedbackCreate";
 
 // Customer Pages
@@ -115,8 +119,8 @@ const App = () => {
                 <Sidebar isAdmin={false} />
                 <div className="ml-64 flex-1">
                   <Routes>
-                    <Route path="/list" element={<FeedbackList />} />
-                    <Route path="/write" element={<WriteFeedback />} />
+                    <Route path="/list" element={<NewFeedbackList />} />
+                    <Route path="/write" element={<NewWriteFeedback />} />
                     <Route path="/edit/:id" element={<UpdateFeedback />} />
                     <Route path="/create" element={<FeedbackCreate />} />
                   </Routes>
