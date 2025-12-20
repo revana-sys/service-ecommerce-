@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const formatDate = (dateString) => {
   try {
     if (!dateString) return 'Date not available';
-    
+
     const date = new Date(dateString);
     if (isNaN(date.getTime())) return 'Invalid date';
 
@@ -60,7 +60,7 @@ const Myorders = () => {
         setLoading(true);
         const token = localStorage.getItem("token");
         const res = await axios.get(
-          `http://localhost:4008/orders/customer/${user.email}`,
+          `http://localhost:3002/orders/customer/${user.email}`,
           {
             headers: {
               Authorization: `Bearer ${token}`
@@ -68,7 +68,7 @@ const Myorders = () => {
           }
         );
         console.log("Orders response:", res.data); // Debug log
-        
+
         let ordersData = [];
         if (Array.isArray(res.data)) {
           ordersData = res.data;
@@ -120,8 +120,8 @@ const Myorders = () => {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 text-lg">{error}</p>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
           >
             Try Again
@@ -171,13 +171,12 @@ const Myorders = () => {
                         Ordered {formatDate(order.createdAt || order.orderDate)}
                       </p>
                     </div>
-                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${
-                      order.status === 'delivered'
+                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${order.status === 'delivered'
                         ? 'bg-green-100 text-green-800'
                         : order.status === 'cancelled'
-                        ? 'bg-red-100 text-red-800'
-                        : 'bg-blue-100 text-blue-800'
-                    }`}>
+                          ? 'bg-red-100 text-red-800'
+                          : 'bg-blue-100 text-blue-800'
+                      }`}>
                       {order.status
                         ? order.status.charAt(0).toUpperCase() + order.status.slice(1)
                         : 'Processing'}

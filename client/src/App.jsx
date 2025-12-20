@@ -15,6 +15,7 @@ import Vproduct from "./pages/Vproduct";
 import Vproductt from "./pages/Vproductt";
 import Feedbacks from "./pages/Admin/feedbacks";
 import Orders from "./pages/Admin/orders";
+import Customers from "./pages/Admin/Customers";
 
 // Feedback Pages
 import WriteFeedback from "./pages/feedback/WriteFeedback";
@@ -77,6 +78,7 @@ const App = () => {
                     <Route path="/dashboard" element={<AdminDashboard />} />
                     <Route path="/Addproduct" element={<Addproduct />} />
                     <Route path="/orders" element={<Orders />} />
+                    <Route path="/customers" element={<Customers />} />
                     <Route path="/feedbacks" element={<Feedbacks />} />
                     <Route path="/editproduct/:id" element={<EditProduct />} />
                     <Route path="/products" element={<AllProducts />} />
