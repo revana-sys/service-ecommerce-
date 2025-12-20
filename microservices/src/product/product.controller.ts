@@ -80,7 +80,7 @@ export class ProductController {
         const productData = product.toObject ? product.toObject() : product;
         if (Array.isArray(productData.images)) {
             productData.images = productData.images.map(image =>
-                image.startsWith('http') ? image : `http://localhost:3002/product/uploads/${image}`
+                image.startsWith('http') ? image : `http://localhost:4008/uploads/${image}`
             );
         }
         return productData;

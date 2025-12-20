@@ -18,8 +18,8 @@ async function bootstrap() {
       credentials: true,
     });
 
-    // Serve static files from 'uploads' directory
-    app.use('/uploads', express.static(join(__dirname, '..', 'uploads')));
+    // Serve static files from 'uploads' directory (in parent project folder)
+    app.use('/uploads', express.static(join(__dirname, '..', '..', 'uploads')));
 
     // Connect Microservice Strategy (TCP)
     app.connectMicroservice<MicroserviceOptions>({
