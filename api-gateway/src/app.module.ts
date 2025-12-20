@@ -4,11 +4,13 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { FeedbackModule } from './feedback/feedback.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
     AuthModule,
     FeedbackModule,
+    OrderModule,
     ClientsModule.register([
       {
         name: 'MICROSERVICES_SERVICE',
@@ -24,3 +26,4 @@ import { FeedbackModule } from './feedback/feedback.module';
   providers: [AppService],
 })
 export class AppModule { }
+
