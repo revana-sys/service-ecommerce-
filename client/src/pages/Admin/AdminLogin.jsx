@@ -34,7 +34,8 @@ const AdminLogin = () => {
       localStorage.setItem('token', data.token);
       navigate('/admin/dashboard');
     } catch (err) {
-      alert('Server error');
+      console.error('Login error:', err);
+      alert('Server error: ' + (err.message || 'Unable to connect to server'));
     } finally {
       setLoading(false);
     }

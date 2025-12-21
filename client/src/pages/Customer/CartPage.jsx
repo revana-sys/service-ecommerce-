@@ -64,9 +64,12 @@ const CartPage = () => {
                   {/* Product Image */}
                   <div className="w-24 h-24 flex-shrink-0">
                     <img
-                      src={`http://localhost:4008/uploads/${item.image}`}
+                      src={`http://localhost:4008/uploads/${item.images && item.images.length > 0 ? item.images[0] : 'placeholder.jpg'}`}
                       alt={item.name}
                       className="w-full h-full object-cover rounded-lg"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/100';
+                      }}
                     />
                   </div>
 
