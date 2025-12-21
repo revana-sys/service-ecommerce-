@@ -43,4 +43,23 @@ export class AuthController {
     this.logger.log(`TCP: Get User By ID ${id}`);
     return await this.authService.getUserById(id);
   }
+
+  // Admin-specific handlers (merged from admin microservice)
+  @MessagePattern({ cmd: 'admin-dashboard' })
+  async getAdminDashboard(@Payload() data: { email: string }) {
+    this.logger.log('TCP: Get Admin Dashboard');
+    return await this.authService.getAdminDashboard(data.email);
+  }
+
+  @MessagePattern({ cmd: 'admin-update-profile' })
+  async updateAdminProfile(@Payload() data: { email: string; updateData: any }) {
+    this.logger.log('TCP: Update Admin Profile');
+    return await this.authService.updateAdminProfile(data.email, data.updateData);
+  }
+
+  @MessagePattern({ cmd: 'admin-get-all' })
+  async getAllAdmins() {
+    this.logger.log('TCP: Get All Admins');
+    return await this.authService.getAllAdmins();
+  }
 }

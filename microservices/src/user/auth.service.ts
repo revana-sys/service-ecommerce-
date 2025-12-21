@@ -131,4 +131,63 @@ export class AuthService {
   async getUserById(id: string) {
     return await this.userModel.findById(id, { password: 0 });
   }
+
+  // Admin-specific methods (merged from admin microservice)
+  async getAdminDashboard(email: string) {
+    try {
+      const admin = await this.userModel.findOne({ email, role: 'admin' });
+      if (!admin) {
+        return { status: 'error', message: 'Admin not found' };
+      }
+
+      return {
+        status: 'success',
+        data: {
+          id: admin._id,
+          name: admin.name,
+          email: admin.email,
+          role: admin.role,
+        },
+      };
+    } catch (error) {
+      this.logger.error('Error fetching admin dashboard:', error);
+      return { status: 'error', message: 'Failed to fetch dashboard' };
+    }
+  }
+
+  async updateAdminProfile(email: string, updateData: any) {
+    try {
+      const admin = await this.userModel.findOneAndUpdate(
+        { email, role: 'admin' },
+        updateData,
+        { new: true }
+      );
+
+      if (!admin) {
+        return { status: 'error', message: 'Admin not found' };
+      }
+
+      return {
+        status: 'success',
+        message: 'Profile updated successfully',
+        data: { id: admin._id, name: admin.name, email: admin.email, role: admin.role },
+      };
+    } catch (error) {
+      this.logger.error('Error updating admin profile:', error);
+      return { status: 'error', message: 'Failed to update profile' };
+    }
+  }
+
+  async getAllAdmins() {
+    try {
+      const admins = await this.userModel.find({ role: 'admin' }, { password: 0 });
+      return {
+        status: 'success',
+        data: admins,
+      };
+    } catch (error) {
+      this.logger.error('Error fetching admins:', error);
+      return { status: 'error', message: 'Failed to fetch admins' };
+    }
+  }
 }
