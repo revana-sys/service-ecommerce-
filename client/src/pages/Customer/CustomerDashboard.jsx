@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Eye, ShoppingCart } from 'lucide-react';
+import { Eye, ShoppingCart, Heart } from 'lucide-react';
 import { useNotification } from "../../context/NotificationContext";
 import { CartContext } from "./CartContext";
+import { WishlistContext } from "./WishlistContext";
 
 const CustomerDashboard = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const CustomerDashboard = () => {
   const [error, setError] = useState(null);
   const { showNotification } = useNotification();
   const { addToCart } = useContext(CartContext);
+  const { isInWishlist, toggleWishlist } = useContext(WishlistContext);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [minPrice, setMinPrice] = useState("");
@@ -91,6 +93,11 @@ const CustomerDashboard = () => {
     }
     addToCart(product);
     showNotification({ message: `${product.name} added to cart`, type: "success" });
+  };
+
+  const handleToggleWishlist = (e, product) => {
+    e.stopPropagation();
+    toggleWishlist(product);
   };
 
   const handleViewDetails = (productId) => {
@@ -228,8 +235,8 @@ const CustomerDashboard = () => {
             <button
               onClick={() => setSelectedCategory('All')}
               className={`px-4 py-2 rounded-full ${selectedCategory === 'All'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                ? 'bg-indigo-600 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                 }`}
             >
               All Products
@@ -239,8 +246,8 @@ const CustomerDashboard = () => {
                 key={category}
                 onClick={() => setSelectedCategory(category)}
                 className={`px-4 py-2 rounded-full ${selectedCategory === category
-                    ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                  ? 'bg-indigo-600 text-white'
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                   }`}
               >
                 {category}
@@ -276,6 +283,20 @@ const CustomerDashboard = () => {
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   </div>
+                  {/* Wishlist Heart Icon */}
+                  <button
+                    onClick={(e) => handleToggleWishlist(e, product)}
+                    className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all z-10"
+                    title={isInWishlist(product._id) ? "Remove from wishlist" : "Add to wishlist"}
+                  >
+                    <Heart
+                      className={`w-5 h-5 transition-colors ${isInWishlist(product._id)
+                          ? 'fill-indigo-600 text-indigo-600'
+                          : 'text-gray-400 hover:text-indigo-600'
+                        }`}
+                    />
+                  </button>
+
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4">
                     <button

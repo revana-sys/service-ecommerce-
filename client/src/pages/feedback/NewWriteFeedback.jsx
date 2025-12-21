@@ -178,7 +178,8 @@ const NewWriteFeedback = () => {
                                 padding: '10px',
                                 border: '1px solid #d1d5db',
                                 borderRadius: '4px',
-                                fontSize: '16px'
+                                fontSize: '16px',
+                                color: '#000000'
                             }}
                         >
                             <option value="" style={{ color: 'black' }}>General Feedback (No specific product)</option>
@@ -235,7 +236,8 @@ const NewWriteFeedback = () => {
                                 border: '1px solid #d1d5db',
                                 borderRadius: '4px',
                                 fontSize: '16px',
-                                resize: 'vertical'
+                                resize: 'vertical',
+                                color: '#000000'
                             }}
                         />
                     </div>

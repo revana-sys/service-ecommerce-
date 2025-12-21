@@ -150,7 +150,7 @@ const Checkout = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition text-gray-900"
               />
             </div>
 
@@ -167,7 +167,7 @@ const Checkout = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition text-gray-900"
               />
             </div>
 
@@ -184,7 +184,7 @@ const Checkout = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition text-gray-900"
               />
             </div>
 
@@ -201,7 +201,7 @@ const Checkout = () => {
                 onChange={handleChange}
                 required
                 rows={3}
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition resize-none"
+                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition resize-none text-gray-900"
               />
             </div>
 
@@ -240,8 +240,8 @@ const Checkout = () => {
               type="submit"
               disabled={isSubmitting || cart.length === 0}
               className={`w-full py-3 rounded-lg text-white font-semibold transition duration-200 ${isSubmitting || cart.length === 0
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-indigo-600 hover:bg-indigo-700"
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-indigo-600 hover:bg-indigo-700"
                 }`}
             >
               {isSubmitting ? "Processing..." : `Place Order - $${totalAmount.toFixed(2)}`}

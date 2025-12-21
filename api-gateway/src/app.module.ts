@@ -5,16 +5,16 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { OrderModule } from './order/order.module';
-import { AdminModule } from './admin/admin.module';
 import { CartModule } from './cart/cart.module';
+import { WishlistModule } from './wishlist/wishlist.module';
 
 @Module({
   imports: [
     AuthModule,
     FeedbackModule,
     OrderModule,
-    AdminModule,
     CartModule,
+    WishlistModule,
     ClientsModule.register([
       {
         name: 'MICROSERVICES_SERVICE',
@@ -29,4 +29,4 @@ import { CartModule } from './cart/cart.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

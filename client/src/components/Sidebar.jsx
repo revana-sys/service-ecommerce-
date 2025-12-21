@@ -10,6 +10,7 @@ import {
   Tag,
   ChevronDown,
   ChevronRight,
+  Heart,
 } from 'lucide-react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -165,6 +166,20 @@ const Sidebar = ({ isAdmin = false, onCategorySelect }) => {
                 >
                   <ShoppingBag className="w-5 h-5" />
                   {!collapsed && <span>Cart</span>}
+                </button>
+              </li>
+
+              {/* Customer Wishlist */}
+              <li>
+                <button
+                  onClick={() => navigate("/customer/wishlist")}
+                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg ${location.pathname === "/customer/wishlist"
+                      ? 'bg-indigo-50 text-indigo-600'
+                      : 'text-gray-700 hover:bg-indigo-50'
+                    }`}
+                >
+                  <Heart className="w-5 h-5" />
+                  {!collapsed && <span>Wishlist</span>}
                 </button>
               </li>
 

@@ -32,6 +32,7 @@ import CustomerLogin from "./pages/Customer/CustomerLogin";
 import CustomerSignup from "./pages/Customer/CustomerSignup";
 import CustomerDashboard from "./pages/Customer/CustomerDashboard";
 import CartPage from "./pages/Customer/CartPage";
+import WishlistPage from "./pages/Customer/WishlistPage";
 import Checkout from "./pages/Customer/checkout";
 import Myorders from "./pages/Customer/myorders";
 
@@ -40,6 +41,7 @@ import { Page, Update } from "./crud";
 
 // Context Providers
 import { CartProvider } from "./pages/Customer/CartContext";
+import { WishlistProvider } from "./pages/Customer/WishlistContext";
 import { NotificationProvider } from "./context/NotificationContext";
 
 import AllProducts from './pages/Admin/Products/AllProducts';
@@ -53,89 +55,92 @@ const App = () => {
   return (
     <NotificationProvider>
       <CartProvider>
-        <Routes>
-          {/* Public Routes with Navigation Bar */}
-          <Route element={<MainLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
-            <Route path="/customer/login" element={<CustomerLogin />} />
-            <Route path="/customer/signup" element={<CustomerSignup />} />
-            <Route path="/product/:id" element={<Vproduct />} />
-            <Route path="/Vproductt/:id" element={<Vproductt />} />
-          </Route>
+        <WishlistProvider>
+          <Routes>
+            {/* Public Routes with Navigation Bar */}
+            <Route element={<MainLayout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/Home" element={<Home />} />
+              <Route path="/Login" element={<Login />} />
+              <Route path="/admin/login" element={<AdminLogin />} />
+              <Route path="/customer/login" element={<CustomerLogin />} />
+              <Route path="/customer/signup" element={<CustomerSignup />} />
+              <Route path="/product/:id" element={<Vproduct />} />
+              <Route path="/Vproductt/:id" element={<Vproductt />} />
+            </Route>
 
-          {/* Admin Routes with Navigation Bar and Sidebar */}
-          <Route path="/admin/*" element={
-            <div className="min-h-screen bg-gray-50">
-              <Navigation />
-              <div className="flex">
-                <Sidebar isAdmin={true} />
-                <div className="ml-64 flex-1">
-                  <Routes>
-                    <Route path="/dashboard" element={<AdminDashboard />} />
-                    <Route path="/Addproduct" element={<Addproduct />} />
-                    <Route path="/orders" element={<Orders />} />
-                    <Route path="/customers" element={<Customers />} />
-                    <Route path="/feedbacks" element={<Feedbacks />} />
-                    <Route path="/editproduct/:id" element={<EditProduct />} />
-                    <Route path="/products" element={<AllProducts />} />
-                    <Route path="/products/summer" element={<SummerProducts />} />
-                    <Route path="/products/winter" element={<WinterProducts />} />
-                    <Route path="/products/turban" element={<TurbanProducts />} />
-                  </Routes>
+            {/* Admin Routes with Navigation Bar and Sidebar */}
+            <Route path="/admin/*" element={
+              <div className="min-h-screen bg-gray-50">
+                <Navigation />
+                <div className="flex">
+                  <Sidebar isAdmin={true} />
+                  <div className="ml-64 flex-1">
+                    <Routes>
+                      <Route path="/dashboard" element={<AdminDashboard />} />
+                      <Route path="/Addproduct" element={<Addproduct />} />
+                      <Route path="/orders" element={<Orders />} />
+                      <Route path="/customers" element={<Customers />} />
+                      <Route path="/feedbacks" element={<Feedbacks />} />
+                      <Route path="/editproduct/:id" element={<EditProduct />} />
+                      <Route path="/products" element={<AllProducts />} />
+                      <Route path="/products/summer" element={<SummerProducts />} />
+                      <Route path="/products/winter" element={<WinterProducts />} />
+                      <Route path="/products/turban" element={<TurbanProducts />} />
+                    </Routes>
+                  </div>
                 </div>
               </div>
-            </div>
-          } />
+            } />
 
-          {/* Customer Routes with Navigation Bar and Sidebar */}
-          <Route path="/customer/*" element={
-            <div className="min-h-screen bg-gray-50">
-              <Navigation />
-              <div className="flex">
-                <Sidebar isAdmin={false} />
-                <div className="ml-64 flex-1">
-                  <Routes>
-                    <Route path="/dashboard" element={<CustomerDashboard />} />
-                    <Route path="/CartPage" element={<CartPage />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/myorders" element={<Myorders />} />
-                    <Route path="/products" element={<AllProducts />} />
-                    <Route path="/products/summer" element={<SummerProducts />} />
-                    <Route path="/products/winter" element={<WinterProducts />} />
-                    <Route path="/products/turban" element={<TurbanProducts />} />
-                  </Routes>
+            {/* Customer Routes with Navigation Bar and Sidebar */}
+            <Route path="/customer/*" element={
+              <div className="min-h-screen bg-gray-50">
+                <Navigation />
+                <div className="flex">
+                  <Sidebar isAdmin={false} />
+                  <div className="ml-64 flex-1">
+                    <Routes>
+                      <Route path="/dashboard" element={<CustomerDashboard />} />
+                      <Route path="/CartPage" element={<CartPage />} />
+                      <Route path="/wishlist" element={<WishlistPage />} />
+                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/myorders" element={<Myorders />} />
+                      <Route path="/products" element={<AllProducts />} />
+                      <Route path="/products/summer" element={<SummerProducts />} />
+                      <Route path="/products/winter" element={<WinterProducts />} />
+                      <Route path="/products/turban" element={<TurbanProducts />} />
+                    </Routes>
+                  </div>
                 </div>
               </div>
-            </div>
-          } />
+            } />
 
-          {/* Feedback Routes with Navigation Bar and Sidebar */}
-          <Route path="/feedback/*" element={
-            <div className="min-h-screen bg-gray-50">
-              <Navigation />
-              <div className="flex">
-                <Sidebar isAdmin={false} />
-                <div className="ml-64 flex-1">
-                  <Routes>
-                    <Route path="/list" element={<NewFeedbackList />} />
-                    <Route path="/write" element={<NewWriteFeedback />} />
-                    <Route path="/edit/:id" element={<UpdateFeedback />} />
-                    <Route path="/create" element={<FeedbackCreate />} />
-                  </Routes>
+            {/* Feedback Routes with Navigation Bar and Sidebar */}
+            <Route path="/feedback/*" element={
+              <div className="min-h-screen bg-gray-50">
+                <Navigation />
+                <div className="flex">
+                  <Sidebar isAdmin={false} />
+                  <div className="ml-64 flex-1">
+                    <Routes>
+                      <Route path="/list" element={<NewFeedbackList />} />
+                      <Route path="/write" element={<NewWriteFeedback />} />
+                      <Route path="/edit/:id" element={<UpdateFeedback />} />
+                      <Route path="/create" element={<FeedbackCreate />} />
+                    </Routes>
+                  </div>
                 </div>
               </div>
-            </div>
-          } />
+            } />
 
-          {/* CRUD Routes */}
-          <Route path="/update/:id" element={<Update />} />
-          <Route path="/page" element={<Page />} />
-          <Route path="/app" element={<Page />} />
-        </Routes>
+            {/* CRUD Routes */}
+            <Route path="/update/:id" element={<Update />} />
+            <Route path="/page" element={<Page />} />
+            <Route path="/app" element={<Page />} />
+          </Routes>
+        </WishlistProvider>
       </CartProvider>
     </NotificationProvider>
   );
