@@ -8,16 +8,16 @@ import { ProductModule } from './product/product.module';
 import { AuthModule } from './user/auth.module';
 import { FeedbackModule } from './feedback/feedback.module';
 import { OrderModule } from './order/order.module';
+import { AdminModule } from './admin/admin.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
-    // Load environment variables globally
     ConfigModule.forRoot({
       envFilePath: '.env',
       isGlobal: true,
     }),
 
-    // Connect to MongoDB dynamically using ConfigService
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -26,14 +26,14 @@ import { OrderModule } from './order/order.module';
       }),
     }),
 
-
     ProductModule,
     AuthModule,
     FeedbackModule,
     OrderModule,
+    AdminModule,
+    CartModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
-
+export class AppModule {}
